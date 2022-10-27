@@ -1,2 +1,1 @@
-#!/bin/bash
-pwd/
+This directory is about loop conditions and parsing
