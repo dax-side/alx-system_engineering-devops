@@ -6,7 +6,8 @@
 On September 11th, 2021 at midnight the server access went down resulting in 504 error for anyone trying to access a website. Background on the server being based on a LAMP stack.
 
 **Timeline**
-**00:00 PST** - 500 error for anyone trying to access the website 
+
+**.** **00:00 PST** - 500 error for anyone trying to access the website.
 **00:05 PST** - Ensuring Apache and MySQL are up and running. 
 **00:10 PST** - The website was not loading properly which on background check revealed that the server was working properly as well as the database. 
 **00:12 PST** - After quick restart to Apache server returned a status of 200 and OK while trying to curl the website. 
