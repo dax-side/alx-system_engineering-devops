@@ -1,3 +1,8 @@
+
+![68747470733a2f2f692e70696e696d672e636f6d2f353634782f37342f36382f35362f37343638353639313937306262623265306331623263373137366662356430352e6a7067](https://user-images.githubusercontent.com/101389494/205467106-62d095ac-d048-405f-9ccd-abffd5a44224.jpg)
+
+
+
 **Incident report for [504 error / Site Outage]**
 <hr style="border:1px solid gray">
 
@@ -7,17 +12,27 @@ On September 11th, 2021 at midnight the server access went down resulting in 504
 
 **Timeline**
 
-**.** **00:00 PST** - 500 error for anyone trying to access the website.
-**00:05 PST** - Ensuring Apache and MySQL are up and running. 
-**00:10 PST** - The website was not loading properly which on background check revealed that the server was working properly as well as the database. 
-**00:12 PST** - After quick restart to Apache server returned a status of 200 and OK while trying to curl the website. 
-**00:18 PST** - Reviewing error logs to check where the error might be coming from. 
-**00:25 PST** - Check /var/log to see that the Apache server was being prematurely shut down. The error log for PHP were nowhere to be found. 
-**00:30 PST** - Checking php.ini settings revealed all error logging had been turned off. Turning the error logging on. 
-**00:32** PST - Restarting apache server and going to the error logs to check what is being logged into the php error logs. 
-**00:36 PST** - Reviewing error logs for php revealed a mistyped file name which was resulting in incorrect loading and premature closing of apache. 
-**00:38 PST** - Fixing file name and restarting Apache server. 
-**00:40 PST** - Server is now running normally and the website is loading properly. 
+* **00:00 PST** - 500 error for anyone trying to access the website.
+* 
+* **00:05 PST** - Ensuring Apache and MySQL are up and running. 
+* 
+* **00:10 PST** - The website was not loading properly which on background check revealed that the server was working properly as well as the database. 
+* 
+* **00:12 PST** - After quick restart to Apache server returned a status of 200 and OK while trying to curl the website. 
+* 
+* **00:18 PST** - Reviewing error logs to check where the error might be coming from. 
+* 
+* **00:25 PST** - Check /var/log to see that the Apache server was being prematurely shut down. The error log for PHP were nowhere to be found. 
+* 
+* **00:30 PST** - Checking php.ini settings revealed all error logging had been turned off. Turning the error logging on.
+* 
+* **00:32** PST - Restarting apache server and going to the error logs to check what is being logged into the php error logs.
+* 
+* **00:36 PST** - Reviewing error logs for php revealed a mistyped file name which was resulting in incorrect loading and premature closing of apache.
+* 
+* **00:38 PST** - Fixing file name and restarting Apache server. 
+* 
+* **00:40 PST** - Server is now running normally and the website is loading properly. 
 
 **Root Cause and Resolution**
 
