@@ -1,42 +1,29 @@
 #!/usr/bin/env bash
-# Install and configure HAProxy on 1b-01 server
-# HAProxy with version == 1.5. to send traffic to web-01 and web-02
-# Distribute requests using the roundrobin algorithm
-# HAProxy manageable via an init script
+# Configure Nginx so that its HTTP response contains
+# a custom header
+#
+balancer="\
+frontend haproxy_balancer
+    bind *:80
+    mode http
+    default_backend webservers
+    
+backend webservers
+    balance roundrobin
+    server 34640-web-01 54.236.44.254:80 check
+    server 34640-web-02 100.26.20.231:80 check
+"
+# Update packages
+apt-get -y update
+apt-get -y upgrade
 
-apt-get install --no-install-recommends software-properties-common
-add-apt-repository ppa:vbernat/haproxy-2.0
-apt-get update
-apt-get install haproxy=2.0.\*
+# Add HAProxy PPA
+apt-get -y install software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.5
+apt-get -y update
 
-echo "ENABLED=1" >> /etc/default/haproxy
-mv /etc/haproxy/haproxy.cfg{,.original}
-touch /etc/haproxy/haproxy.cfg
-
-printf $s "global
-	log 127.0.0.1 local0 notice
-	maxconn 2000
-
-defaults
-   timeout connect 5000
-   timeout client  10000
-   timeout server  10000
-   log     global
-   mode    http
-   option  httplog
-   maxconn 3000
-
-frontend my_servers
-   bind 0.0.0.0:80
-   mode http
-   default_backend web_servers
-
-backend web_servers
-   balance roundrobin
-   server 1313-web-01 34.139.21.144 check
-   server 1313-web-02 44.192.90.48 check
-
-" >> /etc/haproxy/haproxy.cfg
-
-service haproxy start
-
+# Install HAProxy
+apt-get -y install haproxy
+cp -a /etc/haproxy/haproxy.cfg{,.orig}
+echo "$balancer" >> /etc/haproxy/haproxy.cfg
+service haproxy restart
